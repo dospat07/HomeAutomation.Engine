@@ -127,7 +127,7 @@ namespace HomeAutomation.Engine
             app.UseWebSockets();
             app.UseSignalR(r=> 
             {
-                r.MapHub<EngineHub>("/test");
+                r.MapHub<EngineHub>("/socket");
             });
 
             using (var db = new HomeAutomationContext())

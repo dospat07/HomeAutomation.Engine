@@ -26,7 +26,7 @@ namespace HomeAutomation.Engine.CommandHandler
         public void Handle(UpdateRoomCommand command)
         {
             var room = new Room() { AirCondition = command.AirCondition, ID = command.ID, Name = command.Name, NodeAddress = command.NodeAddress };
-            repository.Update(room);
+            repository.Update(room);           
             eventServer.SendToAll(EventTypes.RoomUpdated, room);
         }
 

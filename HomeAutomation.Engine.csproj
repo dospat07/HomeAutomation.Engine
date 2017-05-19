@@ -19,7 +19,9 @@
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
     </None>
   </ItemGroup>
-
+  <Target Name="AfterBuild">
+    <Copy SourceFiles="data.db" DestinationFolder="$(OutputPath)" ContinueOnError="true" />
+  </Target>
   
 
 </Project>
