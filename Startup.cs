@@ -16,6 +16,7 @@ using HomeAutomation.Engine.CommandHandler;
 using HomeAutomation.Engine.Commands;
 using Microsoft.Extensions.Configuration;
 using System.IO;
+//using HomeAutomation.Engine.Identity;
 
 namespace HomeAutomation.Engine
 {
@@ -32,12 +33,20 @@ namespace HomeAutomation.Engine
                 options.SerializerSettings.ContractResolver = new DefaultContractResolver();
             });
             services.AddCors();
-            //services.AddSignalR(options =>
-            //{
-            //    options.Hubs.EnableDetailedErrors = true;
-            //});
+           
             services.AddSignalR();
+
             services.AddEntityFrameworkSqlite().AddDbContext<HomeAutomationContext>();
+
+            services.AddCookieAuthentication();
+            //
+            // IdentityServer 4
+            //
+            //services.AddIdentityServer()
+            //  .AddTemporarySigningCredential()
+            //  .AddInMemoryApiResources(Config.GetApiResources())
+            //  .AddInMemoryClients(Config.GetClients());
+
             //cqrs
             services.AddSingleton<IContainerResolver, Resolver>();
             services.AddSingleton<ICommandBus, CommandBus>();
@@ -69,7 +78,7 @@ namespace HomeAutomation.Engine
             services.AddScoped<ICommandHandler<SendToConditionerCommand>, NodeHandlers>();
 
 
-            // signalr 
+           
            
 
 
@@ -118,17 +127,24 @@ namespace HomeAutomation.Engine
             }
 
 
-            app.UseCors(builder => builder.AllowAnyHeader().
-            AllowAnyMethod().
-            WithOrigins(origins.ToArray()).
-            AllowCredentials());
+            app.UseCors(builder => builder.AllowAnyHeader().AllowAnyMethod().WithOrigins(origins.ToArray()).AllowCredentials());
+
+            app.UseAuthentication();
+
             app.UseMvc();
 
             app.UseWebSockets();
+
             app.UseSignalR(r=> 
             {
                 r.MapHub<EngineHub>("/socket");
             });
+
+
+            //
+            // IdentityServer 4
+            //
+            // app.UseIdentityServer();
 
             using (var db = new HomeAutomationContext())
             {

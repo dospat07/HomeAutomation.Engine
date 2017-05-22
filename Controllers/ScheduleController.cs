@@ -10,7 +10,7 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace HomeAutomation.Engine.Controllers
 {
-    //[Authorize]
+    [Authorize]
     [Route("api/[controller]")]
     public class ScheduleController : Controller
     {
