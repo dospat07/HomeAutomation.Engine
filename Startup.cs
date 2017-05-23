@@ -38,7 +38,7 @@ namespace HomeAutomation.Engine
 
             services.AddEntityFrameworkSqlite().AddDbContext<HomeAutomationContext>();
 
-            services.AddCookieAuthentication();
+            services.AddCookieAuthentication(o=>o.CookieHttpOnly = false);
             //
             // IdentityServer 4
             //

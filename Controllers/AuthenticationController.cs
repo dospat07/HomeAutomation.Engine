@@ -24,7 +24,13 @@ namespace HomeAutomation.Engine.Controllers
                 var identity = new ClaimsIdentity(CookieAuthenticationDefaults.AuthenticationScheme);
                 identity.AddClaim(new Claim("Name", user.UserName));
                 // *** NOTE: SignInAsync is now on the HttpContext instance! ***
-                await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(identity));
+                await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(identity), new AuthenticationProperties()
+                {
+                   
+                    IsPersistent = true,
+                   
+                    
+                });
 
                 return true;
             }
