@@ -5,10 +5,10 @@ using System.Threading.Tasks;
 
 namespace HomeAutomation.Engine.Models
 {
-    public class User
+    public interface ITemperatureRepository
     {
-        public int ID { get; set; }
-        public string UserName { get; set; }
-        public string Password { get; set; }
+        Temperature Add(int roomID, float temperature, DateTime date);
+        
+       
     }
 }

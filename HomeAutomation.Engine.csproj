@@ -12,12 +12,21 @@
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.All" Version="2.0.0-preview1-final" />
     <PackageReference Include="Microsoft.AspNetCore.SignalR" Version="1.0.0-preview2-25061" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="2.0.0-preview1-final" />
+    <!--<PackageReference Include="Microsoft.AspNetCore.All" Version="1.0.0-preview2-25179" />
+    <PackageReference Include="Microsoft.AspNetCore.SignalR" Version="1.0.0-preview2-25179" />-->
   </ItemGroup>
 
   <ItemGroup>
     <None Update="wwwroot\**\*">
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
     </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Update="appsettings.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <Target Name="AfterBuild">
     <Copy SourceFiles="data.db" DestinationFolder="$(OutputPath)" ContinueOnError="true" />

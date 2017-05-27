@@ -11,10 +11,22 @@ namespace HomeAutomation.Engine.Persistance
     {
         public DbSet<Schedule> Schedules { get; set; }
         public DbSet<Room> Rooms { get; set; }
+        public DbSet<User> Users { get; set; }
+        public DbSet<Temperature> Temperatures { get; set; }
+        public DbSet<HourlyTemperature> HourlyTemperatures { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder.UseSqlite("Filename=data.db");
+        }
+
+        public void CalculateDailyTemperature()
+        {
+            var now = DateTime.Now.AddHours(-1).ToString("yyyy-MM-dd HH:00:00");
+            // var l = this.Temperatures.FromSql($"select * from temperatures where date<'{now}'").ToList();
+            this.Database.ExecuteSqlCommand($"insert into hourlytemperatures (id,roomID,date,value) select max(ID), roomID, strftime('%Y-%m-%d %H:00:00', date) as Date, sum(value) / count(*) as Value from temperatures   where date<'{now}' group by roomID, strftime('%Y-%m-%d %H', date)");
+            this.Database.ExecuteSqlCommand($"delete from temperatures where date<'{now}'");
+            this.SaveChanges();
         }
     }
 }

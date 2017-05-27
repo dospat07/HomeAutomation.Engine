@@ -1,6 +1,7 @@
 ﻿using HomeAutomation.Engine.Commands;
 using HomeAutomation.Engine.CQRS;
 using HomeAutomation.Engine.Models;
+using HomeAutomation.Engine.Services;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -18,12 +19,16 @@ namespace HomeAutomation.Engine.CommandHandler
         IEventServer eventServer;
         IRoomQuery roomQuery;
         IRoomRepository roomRepository;
-        public NodeHandlers(IEventServer eventServer, IRoomQuery roomQuery, IRoomRepository roomRepository)
+        ITemperatureRepository temperatureRepository;
+       
+        public NodeHandlers(IEventServer eventServer, IRoomQuery roomQuery, IRoomRepository roomRepository,ITemperatureRepository temperatureRepository)
         {
 
             this.eventServer = eventServer;
             this.roomQuery = roomQuery;
             this.roomRepository = roomRepository;
+            this.temperatureRepository = temperatureRepository;
+           
         }
         public void Handle(ReadTemperatureCommand command)
         {
@@ -37,6 +42,7 @@ namespace HomeAutomation.Engine.CommandHandler
                     {
                         room.Temperature = JsonConvert.DeserializeAnonymousType(response.Content.ReadAsStringAsync().Result, new { temperature = 23.45f }).temperature;
                         roomRepository.UpdateTemperature(room.ID, room.Temperature);
+                        temperatureRepository.Add(room.ID, (float) room.Temperature, DateTime.Now);
                         eventServer.SendToAll(EventTypes.TemperatureUpdated, new { RoomName = room.Name, Temperature = room.Temperature });
                     }
                 }

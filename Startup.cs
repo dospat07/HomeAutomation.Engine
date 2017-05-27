@@ -38,7 +38,11 @@ namespace HomeAutomation.Engine
 
             services.AddEntityFrameworkSqlite().AddDbContext<HomeAutomationContext>();
 
-            services.AddCookieAuthentication(o=>o.CookieHttpOnly = false);
+            services.AddCookieAuthentication(o=>
+            {
+                o.CookieHttpOnly = false;
+                
+             });
             //
             // IdentityServer 4
             //
@@ -57,12 +61,16 @@ namespace HomeAutomation.Engine
             services.AddScoped<IRoomRepository, RoomDbRepository>();
             services.AddScoped<IScheduleQuery, ScheduleDbRepository>();
             services.AddScoped<IScheduleRepository, ScheduleDbRepository>();
+            services.AddScoped<IUserQuery,UserDbRepository>();
+            services.AddScoped<ITemperatureRepository, TemperatureDbRepository>();
 
 
             //services
             services.AddSingleton<ITemperatureReader, TemperatureReader>();
             services.AddSingleton<IScheduleCommandExecutor, ScheduleCommandExecutor>();
+            services.AddSingleton<ICalculateDailyTemperatureService, CalculateDailyTemperatureService>();
             services.AddSingleton<IEventServer, EventServer>();
+            
             services.AddScoped<IViewScheduleFactory, ViewScheduleFactory>();
 
             // command handlers
@@ -148,7 +156,9 @@ namespace HomeAutomation.Engine
 
             using (var db = new HomeAutomationContext())
             {
+               
                 db.Database.EnsureCreated();
+               
 
             }
 

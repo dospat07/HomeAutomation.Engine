@@ -32,6 +32,8 @@ namespace HomeAutomation.Engine
             temperatureReader.Start(Int32.Parse(intervals["temperature"]));
             var schedulerExecutor = host.Services.GetService<IScheduleCommandExecutor>();
             schedulerExecutor.Start(Int32.Parse(intervals["scheduler"]));
+            var calcDailyTempService = host.Services.GetService<ICalculateDailyTemperatureService>();
+            calcDailyTempService.Start(Int32.Parse(intervals["calcTemperature"]) * 60 * 60 * 1000);
             host.Run();
          
         }

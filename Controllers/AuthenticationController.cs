@@ -13,13 +13,22 @@ namespace HomeAutomation.Engine.Controllers
 {
     public class AuthenticationController : Controller
     {
+        private readonly IUserQuery usersQuery;
+
+       
+
+        public AuthenticationController(IUserQuery usersQuery)
+        {
+            this.usersQuery = usersQuery;
+        }
         [AllowAnonymous]
         [HttpPost]
         [Route("api/login")]
         public async Task<bool> Login([FromBody] User user)
         {
-           
-            if (user.UserName == "home" && user.Password == "`1qaz2wsx")
+            
+            var count = usersQuery.GetAll().Where(u => u.UserName.Equals(user.UserName) && u.Password.Equals(user.Password)).ToList().Count;
+            if (count == 1 )
             {
                 var identity = new ClaimsIdentity(CookieAuthenticationDefaults.AuthenticationScheme);
                 identity.AddClaim(new Claim("Name", user.UserName));
