@@ -16,6 +16,8 @@ using HomeAutomation.Engine.CommandHandler;
 using HomeAutomation.Engine.Commands;
 using Microsoft.Extensions.Configuration;
 using System.IO;
+using Microsoft.AspNetCore.SignalR;
+
 //using HomeAutomation.Engine.Identity;
 
 namespace HomeAutomation.Engine
@@ -138,15 +140,15 @@ namespace HomeAutomation.Engine
             app.UseCors(builder => builder.AllowAnyHeader().AllowAnyMethod().WithOrigins(origins.ToArray()).AllowCredentials());
 
             app.UseAuthentication();
-
-            app.UseMvc();
-
             app.UseWebSockets();
 
-            app.UseSignalR(r=> 
+            app.UseSignalR(r =>
             {
-                r.MapHub<EngineHub>("/socket");
+                r.MapHub<EngineHub>("socket");
             });
+            app.UseMvc();
+
+           
 
 
             //
