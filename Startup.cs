@@ -65,7 +65,7 @@ namespace HomeAutomation.Engine
             services.AddScoped<IScheduleRepository, ScheduleDbRepository>();
             services.AddScoped<IUserQuery,UserDbRepository>();
             services.AddScoped<ITemperatureRepository, TemperatureDbRepository>();
-
+            services.AddScoped<IChartsQuery, ChartsQuery>();
 
             //services
             services.AddSingleton<ITemperatureReader, TemperatureReader>();

@@ -23,10 +23,16 @@ namespace HomeAutomation.Engine.Persistance
         public void CalculateDailyTemperature()
         {
             var now = DateTime.Now.AddHours(-1).ToString("yyyy-MM-dd HH:00:00");
-            // var l = this.Temperatures.FromSql($"select * from temperatures where date<'{now}'").ToList();
-            this.Database.ExecuteSqlCommand($"insert into hourlytemperatures (id,roomID,date,value) select max(ID), roomID, strftime('%Y-%m-%d %H:00:00', date) as Date, sum(value) / count(*) as Value from temperatures   where date<'{now}' group by roomID, strftime('%Y-%m-%d %H', date)");
-            this.Database.ExecuteSqlCommand($"delete from temperatures where date<'{now}'");
+
+            var insertSql = $"insert into hourlytemperatures (roomID,date,value) select roomID, strftime('%Y-%m-%d %H:00:00', date) as Date, sum(value) / count(*) as Value from temperatures where date<'{now}' group by roomID, strftime('%Y-%m-%d %H', date)";
+            var deleteSql = $"delete from temperatures where date<'{now}'";
+            Console.WriteLine(insertSql);
+            Console.WriteLine(deleteSql);
+            this.Database.ExecuteSqlCommand(insertSql);
+            this.Database.ExecuteSqlCommand(deleteSql);
             this.SaveChanges();
         }
+
+        
     }
 }

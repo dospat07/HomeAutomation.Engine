@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace HomeAutomation.Engine.Models
 {
     public class TemperatureDbRepository : ITemperatureRepository
-    { 
+    {
 
         Temperature ITemperatureRepository.Add(int roomID, float temperature, DateTime date)
         {
