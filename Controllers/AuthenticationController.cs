@@ -43,13 +43,24 @@ namespace HomeAutomation.Engine.Controllers
 
                 return true;
             }
+            await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
             return false;
         }
-        //[HttpGet]
-        //[Route("Account/Login")]
-        //public async Task<IActionResult> Unat(string ReturnUrl)
-        //{
-        //    return Ok();
-        //}
+        [HttpPut]
+        [HttpGet]
+        [HttpPost]
+        [Route("Account/Login")]
+        public  IActionResult Unauthorized(string ReturnUrl)
+       {
+            return Unauthorized();
+        }
+
+        [Authorize]   
+        [HttpGet]
+        [Route("api/isAuthorized")]
+        public bool IsAuthorized()
+        {
+            return true;
+        }
     }
 }

@@ -42,7 +42,7 @@ namespace HomeAutomation.Engine
 
             services.AddCookieAuthentication(o=>
             {
-                o.CookieHttpOnly = false;
+                o.CookieHttpOnly = true;
                 
              });
             //

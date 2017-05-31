@@ -22,7 +22,7 @@ namespace HomeAutomation.Engine.Controllers
         [HttpGet]
         public IActionResult GetTemperatures(DateTime from ,DateTime to)
         {
-            var result =  this.chartsQuery.GetTemperatures(from, to);
+            var result =  this.chartsQuery.GetTemperatures(from, to.AddDays(1));
             if (result!=null)
                 return Ok(result);
             return NotFound();
