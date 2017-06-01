@@ -36,11 +36,8 @@ namespace HomeAutomation.Engine.Controllers
         public IActionResult Get(int id)
         {
             var item = roomsQuery.Get(id);
-            if (item != null)
-            {
-                return Ok(item);
-            }
-            return NotFound();
+            return Ok(item);
+         
         }
          
         [HttpPost]
