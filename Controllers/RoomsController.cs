@@ -47,20 +47,20 @@ namespace HomeAutomation.Engine.Controllers
         }
 
         [HttpPost("{id}")]
-        public IActionResult SendCommand(int id,[FromBody] AirCondtionCommand  cmd)
+        public void SendCommand(int id,[FromBody] AirCondtionCommand  cmd)
         {
              
             SendToConditionerCommand command = new SendToConditionerCommand() { Command =cmd ,RoomID= id };           
             commandBus.Execute(command);
-            return Ok();
+           // return Ok();
 
         }
 
         [HttpPut]
-        public IActionResult Put( [FromBody] UpdateRoomCommand command)
+        public void Put( [FromBody] UpdateRoomCommand command)
         {
             commandBus.Execute(command);
-            return Ok();
+         //   return Ok();
         }
 
        

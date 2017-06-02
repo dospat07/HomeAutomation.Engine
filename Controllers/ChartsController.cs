@@ -23,9 +23,8 @@ namespace HomeAutomation.Engine.Controllers
         public IActionResult GetTemperatures(DateTime from ,DateTime to)
         {
            
-            var result =  this.chartsQuery.GetTemperatures(from, to.AddDays(1));
-          
-             return Ok(result);
+            var result =  this.chartsQuery.GetTemperatures(from, to.AddDays(1));          
+            return Ok(result);
           
         }
     }
