@@ -9,8 +9,8 @@ using System.Threading.Tasks;
 namespace HomeAutomation.Engine.Controllers
 {
 
-    //[Authorize]
-    [Route("api/[controller]")]
+    
+    [Authorize]
     public class ChartsController:Controller
     {
         private IChartsQuery chartsQuery;
@@ -20,12 +20,19 @@ namespace HomeAutomation.Engine.Controllers
         }
 
         [HttpGet]
-        public IActionResult GetTemperatures(DateTime from ,DateTime to)
+        [Route("api/Charts/Daily")]
+        public IActionResult GetDailyTemperatures(DateTime from ,DateTime to)
+        { 
+            var result =  this.chartsQuery.GetDailyTemperatures(from, to.AddDays(1));          
+            return Ok(result);         
+        }
+
+        [HttpGet]
+        [Route("api/Charts/Hourly")]
+        public IActionResult GetHourlyTemperatures(DateTime from, DateTime to)
         {
-           
-            var result =  this.chartsQuery.GetTemperatures(from, to.AddDays(1));          
+            var result = this.chartsQuery.GetHourlyTemperatures(from, to.AddDays(1));
             return Ok(result);
-          
         }
     }
 }

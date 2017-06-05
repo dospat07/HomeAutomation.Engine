@@ -17,6 +17,7 @@ using HomeAutomation.Engine.Commands;
 using Microsoft.Extensions.Configuration;
 using System.IO;
 using Microsoft.AspNetCore.SignalR;
+using HomeAutomation.Engine.Middleware;
 
 //using HomeAutomation.Engine.Identity;
 
@@ -146,11 +147,10 @@ namespace HomeAutomation.Engine
             {
                 r.MapHub<EngineHub>("socket");
             });
+            app.UseMiddleware<HandleErrorMiddleware>();
+
             app.UseMvc();
-
            
-
-
             //
             // IdentityServer 4
             //

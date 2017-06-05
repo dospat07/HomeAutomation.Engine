@@ -7,7 +7,7 @@ namespace HomeAutomation.Engine.Models
 {
     public interface IChartsQuery
     {
-        object GetTemperatures(DateTime from, DateTime to);
-        
+        object GetHourlyTemperatures(DateTime fromDate, DateTime toDate);
+        object GetDailyTemperatures(DateTime fromDate, DateTime toDate);
     }
 }

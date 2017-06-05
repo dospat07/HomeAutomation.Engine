@@ -13,11 +13,12 @@ namespace HomeAutomation.Engine.Models
         public DateTime Date { get; set; }
     }
 
-    public class HourlyTemperature
+    public class HourlyTemperature  
     {
         public int ID { get; set; }
         public int RoomID { get; set; }
         public float Value { get; set; }
         public DateTime Date { get; set; }
     }
+    
 }
