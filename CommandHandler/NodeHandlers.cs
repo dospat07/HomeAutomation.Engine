@@ -48,7 +48,7 @@ namespace HomeAutomation.Engine.CommandHandler
                 }
                 catch (Exception e)
                 {
-                    eventServer.SendToAll(EventTypes.Error, e.Message);
+                    eventServer.SendToAll(EventTypes.Error, new { message = e.Message });
                 }
             }
         }
@@ -67,13 +67,24 @@ namespace HomeAutomation.Engine.CommandHandler
                       new KeyValuePair<string, string>("temp",  command.Command.Temperature.ToString()),
                       new KeyValuePair<string, string>("model", ((short) room.AirCondition).ToString())
                  });
-                var response = client.PostAsync(room.NodeAddress + "/Remote", content).Result;
-                if (!response.IsSuccessStatusCode)
+                try
                 {
-                    Console.WriteLine(response.StatusCode);
-                  
+                    var response = client.PostAsync(room.NodeAddress + "/Remote", content).Result;
+                    if (!response.IsSuccessStatusCode)
+                    {
+                        eventServer.SendToAll(EventTypes.Error, new { message = $"Node response {response.StatusCode}" });
+
+                    }
+                    else
+                    {
+                        eventServer.SendToAll(EventTypes.CommandSend, new { Fan = command.Command.Fan, Mode = command.Command.Mode, Temp = command.Command.Temperature, Conditioner = room.AirCondition });
+                    }
                 }
-                eventServer.SendToAll(EventTypes.CommandSend, new { Fan = command.Command.Fan, Mode = command.Command.Mode, Temp = command.Command.Temperature, Conditioner = room.AirCondition });
+                catch (Exception e)
+                {
+                    eventServer.SendToAll(EventTypes.Error,new { message = e.Message });
+                }
+               
 
             }
         }
