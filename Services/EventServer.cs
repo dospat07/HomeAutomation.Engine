@@ -31,7 +31,11 @@ namespace HomeAutomation.Engine.Services
 
         private void Log(EventTypes type, object @event)
         {
-            hub.Clients.All.InvokeAsync("onEvent", new[] { type, @event });
+
+            var msg = new { type = $"{type}", message = @event };
+            hub.Clients.All.SendAsync("onEvent",msg );
+
+           
             //hub.Clients.All.onEvent(type,@event);
             Console.WriteLine($"Event {type} data {@event}");
         }

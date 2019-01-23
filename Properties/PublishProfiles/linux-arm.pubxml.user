@@ -6,7 +6,6 @@ by editing this MSBuild file. In order to learn more about this please visit htt
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <TimeStampOfAssociatedLegacyPublishXmlFile />
-    <_NewBackgroundProfile>False</_NewBackgroundProfile>
-    <_PublishTargetUrl>D:\Source\TestApp\HomeAutomation\HomeAutomation.Engine\bin\Release\Ubuntu</_PublishTargetUrl>
+    <_PublishTargetUrl>D:\Source\TestApp\HomeAutomation\HomeAutomation.Engine\bin\Release\netcoreapp2.2\rpi\</_PublishTargetUrl>
   </PropertyGroup>
 </Project>

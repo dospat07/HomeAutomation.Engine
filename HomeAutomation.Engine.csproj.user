@@ -5,7 +5,7 @@
   </PropertyGroup>
   <PropertyGroup>
     <ActiveDebugProfile>HomeAutomation.Engine</ActiveDebugProfile>
-    <NameOfLastUsedPublishProfile>Ubuntu</NameOfLastUsedPublishProfile>
+    <NameOfLastUsedPublishProfile>linux-arm</NameOfLastUsedPublishProfile>
     <WebStackScaffolding_DependencyDialogWidth>600</WebStackScaffolding_DependencyDialogWidth>
     <ShowAllFiles>true</ShowAllFiles>
   </PropertyGroup>

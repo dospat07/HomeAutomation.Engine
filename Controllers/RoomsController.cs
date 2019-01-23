@@ -49,7 +49,7 @@ namespace HomeAutomation.Engine.Controllers
         [HttpPost("{id}")]
         public void SendCommand(int id,[FromBody] AirCondtionCommand  cmd)
         {
-             
+
             SendToConditionerCommand command = new SendToConditionerCommand() { Command =cmd ,RoomID= id };           
             commandBus.Execute(command);
            // return Ok();

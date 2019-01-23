@@ -13,8 +13,12 @@ namespace HomeAutomation.Engine.Models
         {
             using (var context = new HomeAutomationContext())
             {
-                int id = context.Temperatures.Max(o => o.ID) + 1;
-                var temp = new Temperature() { ID = id, RoomID =roomID,Value = temperature,Date=date};
+
+                int id = context.Temperatures.Count()> 0 ? context.Temperatures.Max(o => o.ID) + 1 : 0;
+
+
+
+                var temp = new Temperature() { ID = id, RoomID = roomID, Value = temperature, Date = date };
                 context.Temperatures.Add(temp);
                 context.SaveChanges();
                 return temp;

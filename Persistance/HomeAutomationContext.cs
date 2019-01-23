@@ -26,9 +26,11 @@ namespace HomeAutomation.Engine.Persistance
 
             var insertSql = $"insert into hourlytemperatures (roomID,date,value) select roomID, strftime('%Y-%m-%d %H:00:00', date) as Date,round( sum(value) / count(*),1) as Value from temperatures where date<'{now}' group by roomID, strftime('%Y-%m-%d %H', date)";
             var deleteSql = $"delete from temperatures where date<'{now}'";
-           
+
+#pragma warning disable   EF1000      
             this.Database.ExecuteSqlCommand(insertSql);
             this.Database.ExecuteSqlCommand(deleteSql);
+#pragma warning restore EF1000
             this.SaveChanges();
         }
 

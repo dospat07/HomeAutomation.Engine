@@ -18,13 +18,15 @@ namespace HomeAutomation.Engine.Services
         public ViewSchedule Create(Schedule schedule)
         {
 
-            var item = new ViewSchedule();
-            item.ID = schedule.ID;
-            item.Time = schedule.Time.ToString("HH:mm");
-            item.Room = roomQuery.GetAll().Where(r => r.ID == schedule.RoomID).FirstOrDefault().Name;
-            item.Fan = schedule.Fan;
-            item.Mode = (short)schedule.Mode;
-            item.Temperature = schedule.Temperature;
+            var item = new ViewSchedule
+            {
+                ID = schedule.ID,
+                Time = schedule.Time.ToString("HH:mm"),
+                Room = roomQuery.GetAll().Where(r => r.ID == schedule.RoomID).FirstOrDefault().Name,
+                Fan = schedule.Fan,
+                Mode = (short)schedule.Mode,
+                Temperature = schedule.Temperature
+            };
             string days =
             (schedule.Mon ? "Mon," : "") + (schedule.Tue ? "Tue," : "") + (schedule.Wed ? "Wed," : "") + (schedule.Thu ? "Thu," : "") +
                             (schedule.Fri ? "Fri," : "") + (schedule.Sat ? "Sat," : "") + (schedule.Sun ? "Sun," : "");

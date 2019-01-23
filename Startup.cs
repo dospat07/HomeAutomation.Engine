@@ -18,6 +18,7 @@ using Microsoft.Extensions.Configuration;
 using System.IO;
 using Microsoft.AspNetCore.SignalR;
 using HomeAutomation.Engine.Middleware;
+using Microsoft.AspNetCore.Authentication.Cookies;
 
 //using HomeAutomation.Engine.Identity;
 
@@ -33,26 +34,24 @@ namespace HomeAutomation.Engine
         {
             services.AddMvc().AddJsonOptions(options =>
             {
-                options.SerializerSettings.ContractResolver = new DefaultContractResolver();
+               // options.SerializerSettings.ContractResolver = new DefaultContractResolver();
             });
             services.AddCors();
            
             services.AddSignalR();
 
+        
             services.AddEntityFrameworkSqlite().AddDbContext<HomeAutomationContext>();
 
-            services.AddCookieAuthentication(o=>
-            {
-                o.CookieHttpOnly = true;
-                
-             });
-            //
-            // IdentityServer 4
-            //
-            //services.AddIdentityServer()
-            //  .AddTemporarySigningCredential()
-            //  .AddInMemoryApiResources(Config.GetApiResources())
-            //  .AddInMemoryClients(Config.GetClients());
+            //services.AddCookieAuthentication(o=>
+            //{
+            //    o.CookieHttpOnly = true;
+
+            // });
+            services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie(
+
+                o => { o.Cookie.HttpOnly = true; o.Cookie.SameSite = SameSiteMode.None; }
+                );
 
             //cqrs
             services.AddSingleton<IContainerResolver, Resolver>();
@@ -145,16 +144,13 @@ namespace HomeAutomation.Engine
 
             app.UseSignalR(r =>
             {
-                r.MapHub<EngineHub>("socket");
+                r.MapHub<EngineHub>("/socket");
             });
             app.UseMiddleware<HandleErrorMiddleware>();
 
             app.UseMvc();
            
-            //
-            // IdentityServer 4
-            //
-            // app.UseIdentityServer();
+          
 
             using (var db = new HomeAutomationContext())
             {

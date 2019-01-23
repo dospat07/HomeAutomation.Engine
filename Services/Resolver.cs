@@ -10,13 +10,13 @@ namespace HomeAutomation.Engine.Services
     {
 
 
-        private IServiceProvider serviceProvider;
+        private readonly IServiceProvider serviceProvider;
         public Resolver(IServiceProvider serviceProvider)
         {
             this.serviceProvider = serviceProvider;
         }
 
-
+    
         public object  GetService(Type type)
         {
             return this.serviceProvider.GetService(type);
