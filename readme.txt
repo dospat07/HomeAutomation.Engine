@@ -54,3 +54,28 @@ Timezone
 
 sudo rm /etc/localtime
 sudo ln -s /usr/share/zoneinfo/Europa/Sofia /etc/localtime
+
+NGNIX
+
+1 инсталиране :sudo apt-get install nginx
+2 съдържание на /etc/nginx/sites-available/default
+server {
+        listen 80;
+
+        root /home/pi/ha/www;
+
+        # Add index.php to the list if you are using PHP
+        index index.html
+
+        server_name localhost;
+
+        location / {
+                # First attempt to serve request as file, then
+                # as directory, then fall back to displaying a 404.
+                try_files $uri /index.html;
+        }
+
+}
+
+   
+3  sudo ln -s /etc/nginx/sites-available/default /etc/nginx/sites-enabled/
