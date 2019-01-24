@@ -7,6 +7,6 @@
     <ActiveDebugProfile>HomeAutomation.Engine</ActiveDebugProfile>
     <NameOfLastUsedPublishProfile>linux-arm</NameOfLastUsedPublishProfile>
     <WebStackScaffolding_DependencyDialogWidth>600</WebStackScaffolding_DependencyDialogWidth>
-    <ShowAllFiles>true</ShowAllFiles>
+    <ShowAllFiles>false</ShowAllFiles>
   </PropertyGroup>
 </Project>

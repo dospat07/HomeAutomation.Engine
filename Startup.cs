@@ -146,7 +146,7 @@ namespace HomeAutomation.Engine
             {
                 r.MapHub<EngineHub>("/socket");
             });
-            app.UseMiddleware<HandleErrorMiddleware>();
+            app.UseMiddleware<ErrorHandlingMiddleware>();
 
             app.UseMvc();
            
