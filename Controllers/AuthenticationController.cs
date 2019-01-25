@@ -47,14 +47,7 @@ namespace HomeAutomation.Engine.Controllers
             await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
             return Unauthorized(Task.CompletedTask);
         }
-        //[HttpPut]
-        //[HttpGet]
-        //[HttpPost]
-        //[Route("Account/Login")]
-        //public  IActionResult Unauthorized(string ReturnUrl)
-        //{
-        //    return Unauthorized();
-        //}
+       
 
         [Authorize]   
         [HttpGet]

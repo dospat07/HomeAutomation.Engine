@@ -34,23 +34,26 @@ namespace HomeAutomation.Engine
         {
             services.AddMvc().AddJsonOptions(options =>
             {
-               // options.SerializerSettings.ContractResolver = new DefaultContractResolver();
+                // options.SerializerSettings.ContractResolver = new DefaultContractResolver();
             });
             services.AddCors();
-           
+
             services.AddSignalR();
 
-        
             services.AddEntityFrameworkSqlite().AddDbContext<HomeAutomationContext>();
 
-            //services.AddCookieAuthentication(o=>
-            //{
-            //    o.CookieHttpOnly = true;
+           
+            services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie(options =>
+                {
 
-            // });
-            services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie(
-
-                o => { o.Cookie.HttpOnly = true; o.Cookie.SameSite = SameSiteMode.None; }
+                    options.Cookie.HttpOnly = true;
+                    options.Cookie.SameSite = SameSiteMode.None;
+                    options.Events.OnRedirectToLogin = (context) =>
+                    {
+                        context.Response.StatusCode = 401;
+                        return Task.CompletedTask;
+                    };
+                }
                 );
 
             services.AddSwaggerDocument();
@@ -65,7 +68,7 @@ namespace HomeAutomation.Engine
             services.AddScoped<IRoomRepository, RoomDbRepository>();
             services.AddScoped<IScheduleQuery, ScheduleDbRepository>();
             services.AddScoped<IScheduleRepository, ScheduleDbRepository>();
-            services.AddScoped<IUserQuery,UserDbRepository>();
+            services.AddScoped<IUserQuery, UserDbRepository>();
             services.AddScoped<ITemperatureRepository, TemperatureDbRepository>();
             services.AddScoped<IChartsQuery, ChartsQuery>();
 
@@ -74,7 +77,7 @@ namespace HomeAutomation.Engine
             services.AddSingleton<IScheduleCommandExecutor, ScheduleCommandExecutor>();
             services.AddSingleton<ICalculateDailyTemperatureService, CalculateDailyTemperatureService>();
             services.AddSingleton<IEventServer, EventServer>();
-            
+
             services.AddScoped<IViewScheduleFactory, ViewScheduleFactory>();
 
             // command handlers
@@ -90,8 +93,8 @@ namespace HomeAutomation.Engine
             services.AddScoped<ICommandHandler<SendToConditionerCommand>, NodeHandlers>();
 
 
-           
-           
+
+
 
 
         }
@@ -153,14 +156,14 @@ namespace HomeAutomation.Engine
             app.UseSwagger();
             app.UseSwaggerUi3();
             app.UseMvc();
-           
-          
+
+
 
             using (var db = new HomeAutomationContext())
             {
-               
+
                 db.Database.EnsureCreated();
-               
+
 
             }
 
