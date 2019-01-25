@@ -9,17 +9,26 @@ using System.Threading.Tasks;
 
 namespace HomeAutomation.Engine.Controllers
 {
-
+    /// <summary>
+    ///Return data for chart control
+    /// </summary>
+    [ApiConventionType(typeof(DefaultApiConventions))]
     [ApiController]
     [Authorize]
     public class ChartsController:Controller
     {
-        private IChartsQuery chartsQuery;
+        private readonly IChartsQuery chartsQuery;
         public ChartsController(IChartsQuery chartsQuery)
         {
             this.chartsQuery = chartsQuery;
         }
 
+        /// <summary>
+        /// Returns temperature for period on daily a basis
+        /// </summary>
+        /// <param name="from">Start date</param>
+        /// <param name="to">End date</param>
+        /// <returns></returns>
         [HttpGet]
         [Route("api/Charts/Daily")]
         public ActionResult<ChartData> GetDailyTemperatures(DateTime from ,DateTime to)
@@ -27,7 +36,12 @@ namespace HomeAutomation.Engine.Controllers
             var result =  this.chartsQuery.GetDailyTemperatures(from, to.AddDays(1));          
             return Ok(result);         
         }
-
+        /// <summary>
+        /// Returns temperature for period on hourly a basis
+        /// </summary>
+        /// <param name="from">Start date</param>
+        /// <param name="to">End date</param>
+        /// <returns></returns>
         [HttpGet]
         [Route("api/Charts/Hourly")]
         public ActionResult<ChartData> GetHourlyTemperatures(DateTime from, DateTime to)

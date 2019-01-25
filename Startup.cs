@@ -53,6 +53,8 @@ namespace HomeAutomation.Engine
                 o => { o.Cookie.HttpOnly = true; o.Cookie.SameSite = SameSiteMode.None; }
                 );
 
+            services.AddSwaggerDocument();
+
             //cqrs
             services.AddSingleton<IContainerResolver, Resolver>();
             services.AddSingleton<ICommandBus, CommandBus>();
@@ -148,6 +150,8 @@ namespace HomeAutomation.Engine
             });
             app.UseMiddleware<ErrorHandlingMiddleware>();
 
+            app.UseSwagger();
+            app.UseSwaggerUi3();
             app.UseMvc();
            
           

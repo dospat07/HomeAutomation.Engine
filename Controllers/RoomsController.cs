@@ -7,11 +7,13 @@ using HomeAutomation.Engine.Models;
 using HomeAutomation.Engine.CQRS;
 using HomeAutomation.Engine.Commands;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 
 // For more information on enabling Web API for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace HomeAutomation.Engine.Controllers
 {
+    [ApiConventionType(typeof(DefaultApiConventions))]
     [ApiController]
     [Authorize]
     [Route("api/[controller]")]
@@ -24,7 +26,10 @@ namespace HomeAutomation.Engine.Controllers
             this.commandBus = commandBus;
             this.roomsQuery = roomsQuery;
         }
-         
+        /// <summary>
+        ///  Returns all rooms
+        /// </summary>
+        /// <returns></returns>
         [HttpGet]
         public ActionResult<IEnumerable<Room>>Get()
         {
@@ -32,32 +37,52 @@ namespace HomeAutomation.Engine.Controllers
             return Ok(roomsQuery.GetAll());
         }
 
-       
+        /// <summary>
+        /// Return room 
+        /// </summary>
+        /// <param name="id">room id</param>
+        /// <returns></returns>
         [HttpGet("{id}")]
         public ActionResult<Room> Get(int id)
         {
             var item = roomsQuery.Get(id);
+            if (item == null) return NotFound();
             return Ok(item);
          
         }
-         
+        /// <summary>
+        ///  Add room 
+        /// </summary>
+        /// <param name="command"></param>
+        /// <returns></returns>
         [HttpPost]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesDefaultResponseType]
         public IActionResult Post([FromBody]AddRoomCommand command)
         {
             commandBus.Execute(command);
             return Ok();
         }
-
+        /// <summary>
+        /// Send remote command to device in room id
+        /// </summary>
+        /// <param name="id">room id</param>
+        /// <param name="remoteCommand">remote command to device</param>
+        /// <returns></returns>
         [HttpPost("{id}")]
-        public IActionResult SendCommand(int id,[FromBody] AirCondtionCommand  cmd)
+        public IActionResult SendCommand(int id,[FromBody] AirCondtionCommand  remoteCommand)
         {
 
-            SendToConditionerCommand command = new SendToConditionerCommand() { Command =cmd ,RoomID= id };           
+            SendToConditionerCommand command = new SendToConditionerCommand() { Command =remoteCommand ,RoomID= id };           
             commandBus.Execute(command);
             return Ok();
 
         }
-
+        /// <summary>
+        /// Update room 
+        /// </summary>
+        /// <param name="command"></param>
+        /// <returns></returns>
         [HttpPut]
         public IActionResult Put( [FromBody] UpdateRoomCommand command)
         {
@@ -65,7 +90,11 @@ namespace HomeAutomation.Engine.Controllers
             return Ok();
         }
 
-       
+        /// <summary>
+        /// Delete room id
+        /// </summary>
+        /// <param name="command"></param>
+        /// <returns></returns>
         [HttpDelete]
         public IActionResult Delete([FromBody] DeleteRoomCommand command)
         {

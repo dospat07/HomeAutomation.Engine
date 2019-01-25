@@ -7,7 +7,7 @@ namespace HomeAutomation.Engine.Models
 {
     public class AirCondtionCommand
     {
-
+        
         public short Temperature { get; set; }
         public short Fan { get; set; }  
         public Mode Mode { get; set; }

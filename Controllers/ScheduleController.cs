@@ -7,9 +7,11 @@ using System.Threading.Tasks;
 using HomeAutomation.Engine.Models;
 using HomeAutomation.Engine.Commands;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 
 namespace HomeAutomation.Engine.Controllers
 {
+    [ApiConventionType(typeof(DefaultApiConventions))]
     [ApiController]
     [Authorize]
     [Route("api/[controller]")]
@@ -28,10 +30,13 @@ namespace HomeAutomation.Engine.Controllers
         [HttpGet]
         public ActionResult<IEnumerable<ViewSchedule>> Get()
         {
+           
             return Ok(scheduleQuery.GetAllFormated());
         }
 
         [HttpPost]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesDefaultResponseType]
         public IActionResult Post([FromBody] AddScheduleCommand command)
         {
             

@@ -1,0 +1,71 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>HomeAutomation.Engine</name>
+    </assembly>
+    <members>
+        <member name="T:HomeAutomation.Engine.Controllers.ChartsController">
+             <summary>
+            Return data for chart control
+             </summary>
+        </member>
+        <member name="M:HomeAutomation.Engine.Controllers.ChartsController.GetDailyTemperatures(System.DateTime,System.DateTime)">
+            <summary>
+            Returns temperature for period on daily a basis
+            </summary>
+            <param name="from">Start date</param>
+            <param name="to">End date</param>
+            <returns></returns>
+        </member>
+        <member name="M:HomeAutomation.Engine.Controllers.ChartsController.GetHourlyTemperatures(System.DateTime,System.DateTime)">
+            <summary>
+            Returns temperature for period on hourly a basis
+            </summary>
+            <param name="from">Start date</param>
+            <param name="to">End date</param>
+            <returns></returns>
+        </member>
+        <member name="M:HomeAutomation.Engine.Controllers.RoomsController.Get">
+            <summary>
+             Returns all rooms
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:HomeAutomation.Engine.Controllers.RoomsController.Get(System.Int32)">
+            <summary>
+            Return room 
+            </summary>
+            <param name="id">room id</param>
+            <returns></returns>
+        </member>
+        <member name="M:HomeAutomation.Engine.Controllers.RoomsController.Post(HomeAutomation.Engine.Commands.AddRoomCommand)">
+            <summary>
+             Add room 
+            </summary>
+            <param name="command"></param>
+            <returns></returns>
+        </member>
+        <member name="M:HomeAutomation.Engine.Controllers.RoomsController.SendCommand(System.Int32,HomeAutomation.Engine.Models.AirCondtionCommand)">
+            <summary>
+            Send remote command to device in room id
+            </summary>
+            <param name="id">room id</param>
+            <param name="remoteCommand">remote command to device</param>
+            <returns></returns>
+        </member>
+        <member name="M:HomeAutomation.Engine.Controllers.RoomsController.Put(HomeAutomation.Engine.Commands.UpdateRoomCommand)">
+            <summary>
+            Update room 
+            </summary>
+            <param name="command"></param>
+            <returns></returns>
+        </member>
+        <member name="M:HomeAutomation.Engine.Controllers.RoomsController.Delete(HomeAutomation.Engine.Commands.DeleteRoomCommand)">
+            <summary>
+            Delete room id
+            </summary>
+            <param name="command"></param>
+            <returns></returns>
+        </member>
+    </members>
+</doc>

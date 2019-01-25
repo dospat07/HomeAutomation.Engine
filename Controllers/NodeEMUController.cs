@@ -9,6 +9,7 @@ using HomeAutomation.Engine.Models;
 
 namespace HomeAutomation.Engine.Controllers
 {
+    [ApiConventionType(typeof(DefaultApiConventions))]
     [ApiController]
     [Route("api/[controller]")]
     public class NodeEMUController : Controller
@@ -20,7 +21,7 @@ namespace HomeAutomation.Engine.Controllers
         [Route("/api/Temperature")]
         public ActionResult<double> GetTemperture()
         {
-            var result = new { temperature = 18 + rnd.NextDouble() * 5 };
+            var result = new { temperature = Math.Round(18 + rnd.NextDouble() * 5,1) };
             return Ok(result);
         }
 

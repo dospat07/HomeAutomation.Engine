@@ -8,16 +8,15 @@ using System.Security.Claims;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 
 namespace HomeAutomation.Engine.Controllers
 {
+    [ApiConventionType(typeof(DefaultApiConventions))]
     [ApiController]
     public class AuthenticationController : Controller
     {
         private readonly IUserQuery usersQuery;
-
-       
-
         public AuthenticationController(IUserQuery usersQuery)
         {
             this.usersQuery = usersQuery;
@@ -26,7 +25,10 @@ namespace HomeAutomation.Engine.Controllers
         [AllowAnonymous]
         [HttpPost]
         [Route("api/login")]
-        public async Task<bool> Login([FromBody] User user)
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesDefaultResponseType]
+        public async Task<ActionResult> Login([FromBody] User user)
         {
             
             var count = usersQuery.GetAll().Where(u => u.UserName.Equals(user.UserName) && u.Password.Equals(user.Password)).ToList().Count;
@@ -36,33 +38,30 @@ namespace HomeAutomation.Engine.Controllers
                 identity.AddClaim(new Claim("Name", user.UserName));
                 // *** NOTE: SignInAsync is now on the HttpContext instance! ***
                 await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(identity), new AuthenticationProperties()
-                {
-                   
-                    IsPersistent = true,
-                   
-                    
+                {                 
+                    IsPersistent = true,                   
                 });
 
-                return true;
+                return Ok(Task.CompletedTask);
             }
             await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
-            return false;
+            return Unauthorized(Task.CompletedTask);
         }
-        [HttpPut]
-        [HttpGet]
-        [HttpPost]
-        [Route("Account/Login")]
-        public  IActionResult Unauthorized(string ReturnUrl)
-       {
-            return Unauthorized();
-        }
+        //[HttpPut]
+        //[HttpGet]
+        //[HttpPost]
+        //[Route("Account/Login")]
+        //public  IActionResult Unauthorized(string ReturnUrl)
+        //{
+        //    return Unauthorized();
+        //}
 
         [Authorize]   
         [HttpGet]
         [Route("api/isAuthorized")]
-        public bool IsAuthorized()
+        public IActionResult IsAuthorized()
         {
-            return true;
+            return Ok();
         }
     }
 }
