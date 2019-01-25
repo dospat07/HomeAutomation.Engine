@@ -12,6 +12,7 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace HomeAutomation.Engine.Controllers
 {
+    [ApiController]
     [Authorize]
     [Route("api/[controller]")]
     public class RoomsController : Controller
@@ -25,15 +26,15 @@ namespace HomeAutomation.Engine.Controllers
         }
          
         [HttpGet]
-        public IEnumerable<Room> Get()
+        public ActionResult<IEnumerable<Room>>Get()
         {
             Console.WriteLine(this.User);
-            return roomsQuery.GetAll();
+            return Ok(roomsQuery.GetAll());
         }
 
        
         [HttpGet("{id}")]
-        public IActionResult Get(int id)
+        public ActionResult<Room> Get(int id)
         {
             var item = roomsQuery.Get(id);
             return Ok(item);
@@ -41,33 +42,35 @@ namespace HomeAutomation.Engine.Controllers
         }
          
         [HttpPost]
-        public void Post([FromBody]AddRoomCommand command)
+        public IActionResult Post([FromBody]AddRoomCommand command)
         {
             commandBus.Execute(command);
+            return Ok();
         }
 
         [HttpPost("{id}")]
-        public void SendCommand(int id,[FromBody] AirCondtionCommand  cmd)
+        public IActionResult SendCommand(int id,[FromBody] AirCondtionCommand  cmd)
         {
 
             SendToConditionerCommand command = new SendToConditionerCommand() { Command =cmd ,RoomID= id };           
             commandBus.Execute(command);
-           // return Ok();
+            return Ok();
 
         }
 
         [HttpPut]
-        public void Put( [FromBody] UpdateRoomCommand command)
+        public IActionResult Put( [FromBody] UpdateRoomCommand command)
         {
             commandBus.Execute(command);
-         //   return Ok();
+            return Ok();
         }
 
        
         [HttpDelete]
-        public void Delete([FromBody] DeleteRoomCommand command)
+        public IActionResult Delete([FromBody] DeleteRoomCommand command)
         {
             commandBus.Execute(command);
+            return Ok();
         }
     }
 }

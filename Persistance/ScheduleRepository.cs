@@ -98,11 +98,11 @@ namespace HomeAutomation.Engine.Persistance
             return Schedules;
         }
 
-        public IEnumerable<dynamic> GetFormated()
+        public IEnumerable<ViewSchedule> GetAllFormated()
         {
             {
 
-                List<dynamic> result = new List<dynamic>();
+                List<ViewSchedule> result = new List<ViewSchedule>();
                 foreach (var schedule in Schedules)
                 {
 

@@ -72,13 +72,13 @@ namespace HomeAutomation.Engine.Persistance
             }
         }
 
-        public IEnumerable<dynamic> GetFormated()
+        public IEnumerable<ViewSchedule> GetAllFormated()
         {
             using (var context = new HomeAutomationContext())
             {
 
 
-                List<dynamic> result = new List<dynamic>();
+                List<ViewSchedule> result = new List<ViewSchedule>();
                 foreach (var schedule in context.Schedules)
                 {
 

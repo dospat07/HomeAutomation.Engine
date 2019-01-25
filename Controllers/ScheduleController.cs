@@ -10,8 +10,10 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace HomeAutomation.Engine.Controllers
 {
+    [ApiController]
     [Authorize]
     [Route("api/[controller]")]
+   
     public class ScheduleController : Controller
     {
         private ICommandBus commandBus;
@@ -24,23 +26,25 @@ namespace HomeAutomation.Engine.Controllers
         }
 
         [HttpGet]
-        public IEnumerable<dynamic> Get()
+        public ActionResult<IEnumerable<ViewSchedule>> Get()
         {
-            return scheduleQuery.GetFormated();
+            return Ok(scheduleQuery.GetAllFormated());
         }
 
         [HttpPost]
-        public void Post([FromBody] AddScheduleCommand command)
+        public IActionResult Post([FromBody] AddScheduleCommand command)
         {
             
             commandBus.Execute(command);
+            return Ok();
         }
 
       
         [HttpDelete]
-        public void Delete([FromBody] DeleteScheduleCommand command)
+        public IActionResult Delete([FromBody] DeleteScheduleCommand command)
         {
             commandBus.Execute(command);
+            return Ok();
         }
     }
 }

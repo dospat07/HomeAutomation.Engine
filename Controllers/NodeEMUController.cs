@@ -9,15 +9,16 @@ using HomeAutomation.Engine.Models;
 
 namespace HomeAutomation.Engine.Controllers
 {
+    [ApiController]
     [Route("api/[controller]")]
     public class NodeEMUController : Controller
     {
-      
-       static Random rnd = new Random();
-       
+
+        static Random rnd = new Random();
+
         [HttpGet]
         [Route("/api/Temperature")]
-        public IActionResult GetTemperture()
+        public ActionResult<double> GetTemperture()
         {
             var result = new { temperature = 18 + rnd.NextDouble() * 5 };
             return Ok(result);
@@ -28,18 +29,14 @@ namespace HomeAutomation.Engine.Controllers
         //Mode Mode
         //AirCondtion model
 
-        [HttpPost]
+
         [Route("/api/Remote")]
-        public void Post([FromForm] short temp, [FromForm] short fan, [FromForm] short mode, [FromForm] short model)
+        public IActionResult Post([FromForm] short temp, [FromForm] short fan, [FromForm] short mode, [FromForm] short model)
         {
             Console.WriteLine($"temp {temp} fan {fan} mode {mode} model {model}");
+            return Ok();
         }
-        //[HttpPost]
-        //[Route("/api/AirCond")]
-        //public void Post([FromForm] string formData)
-        //{
-        //    Console.WriteLine($"/api/AirCond {formData}");
-        //}
+
 
 
     }

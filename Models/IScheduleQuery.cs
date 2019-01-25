@@ -8,6 +8,6 @@ namespace HomeAutomation.Engine.Models
     public interface IScheduleQuery
     {
         IEnumerable<Schedule> GetAll();
-        IEnumerable<dynamic> GetFormated();
+        IEnumerable<ViewSchedule> GetAllFormated();
     }
 }

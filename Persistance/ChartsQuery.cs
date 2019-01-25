@@ -1,4 +1,5 @@
 ﻿using HomeAutomation.Engine.Models;
+using HomeAutomation.Engine.Models.Charts;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,7 +9,7 @@ namespace HomeAutomation.Engine.Persistance
 {
     public class ChartsQuery : IChartsQuery
     {
-        public object GetHourlyTemperatures(DateTime fromDate, DateTime toDate)
+        public ChartData GetHourlyTemperatures(DateTime fromDate, DateTime toDate)
         {
             using (var ctx = new HomeAutomationContext())
             {
@@ -18,7 +19,7 @@ namespace HomeAutomation.Engine.Persistance
 
         }
 
-        public object GetDailyTemperatures(DateTime fromDate, DateTime toDate)
+        public ChartData GetDailyTemperatures(DateTime fromDate, DateTime toDate)
         {
             using (var ctx = new HomeAutomationContext())
             {
@@ -27,21 +28,21 @@ namespace HomeAutomation.Engine.Persistance
             }
         }
 
-        public object GetData(List<Temperature> temperatures, string format)
+        private ChartData GetData(List<Temperature> temperatures, string format)
         {
             using (var ctx = new HomeAutomationContext())
             {
                 var q = from r in ctx.Rooms
-                        select new
+                        select new Dataset()
                         {
-                            label = r.Name,
-                            data = (from t in temperatures where t.RoomID == r.ID orderby t.Date select t.Value).ToList()
+                            Label = r.Name,
+                            Data = (from t in temperatures where t.RoomID == r.ID orderby t.Date select t.Value).ToList()
 
                         };
-                var result = new
+                var result = new ChartData()
                 {
-                    labels = temperatures.OrderBy(d => d.Date).Select(d => d.Date.ToString(format)).Distinct().ToList(),
-                    datasets = q.ToList()
+                    Labels = temperatures.OrderBy(d => d.Date).Select(d => d.Date.ToString(format)).Distinct().ToList(),
+                    Datasets = q.ToList()
                 };
                 return result;
             }

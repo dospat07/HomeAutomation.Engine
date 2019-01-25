@@ -1,4 +1,5 @@
 ﻿using HomeAutomation.Engine.Models;
+using HomeAutomation.Engine.Models.Charts;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -9,7 +10,7 @@ using System.Threading.Tasks;
 namespace HomeAutomation.Engine.Controllers
 {
 
-    
+    [ApiController]
     [Authorize]
     public class ChartsController:Controller
     {
@@ -21,7 +22,7 @@ namespace HomeAutomation.Engine.Controllers
 
         [HttpGet]
         [Route("api/Charts/Daily")]
-        public IActionResult GetDailyTemperatures(DateTime from ,DateTime to)
+        public ActionResult<ChartData> GetDailyTemperatures(DateTime from ,DateTime to)
         { 
             var result =  this.chartsQuery.GetDailyTemperatures(from, to.AddDays(1));          
             return Ok(result);         
@@ -29,7 +30,7 @@ namespace HomeAutomation.Engine.Controllers
 
         [HttpGet]
         [Route("api/Charts/Hourly")]
-        public IActionResult GetHourlyTemperatures(DateTime from, DateTime to)
+        public ActionResult<ChartData> GetHourlyTemperatures(DateTime from, DateTime to)
         {
             var result = this.chartsQuery.GetHourlyTemperatures(from, to.AddDays(1));
             return Ok(result);

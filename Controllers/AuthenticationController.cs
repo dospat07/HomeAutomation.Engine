@@ -11,6 +11,7 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace HomeAutomation.Engine.Controllers
 {
+    [ApiController]
     public class AuthenticationController : Controller
     {
         private readonly IUserQuery usersQuery;
@@ -21,6 +22,7 @@ namespace HomeAutomation.Engine.Controllers
         {
             this.usersQuery = usersQuery;
         }
+
         [AllowAnonymous]
         [HttpPost]
         [Route("api/login")]

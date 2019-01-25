@@ -9,8 +9,8 @@ namespace HomeAutomation.Engine.Models.Charts
     public class Dataset
     {
         [JsonProperty(PropertyName = "label")]
-        string Label { get; set; }
+        public string Label { get; set; }
         [JsonProperty(PropertyName = "data")]
-        List<float> Data { get; set; }
+        public List<float> Data { get; set; }
     }
 }
