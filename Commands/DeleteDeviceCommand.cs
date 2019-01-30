@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace HomeAutomation.Engine.Commands
 {
-    public class DeleteRoomCommand:ICommand
+    public class DeleteDeviceCommand:ICommand
     {
         public int ID { get; set; }
     }

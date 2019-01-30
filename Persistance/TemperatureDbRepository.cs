@@ -9,7 +9,7 @@ namespace HomeAutomation.Engine.Models
     public class TemperatureDbRepository : ITemperatureRepository
     {
 
-        Temperature ITemperatureRepository.Add(int roomID, float temperature, DateTime date)
+        Temperature ITemperatureRepository.Add(int deviceID, float temperature, DateTime date)
         {
             using (var context = new HomeAutomationContext())
             {
@@ -18,7 +18,7 @@ namespace HomeAutomation.Engine.Models
 
 
 
-                var temp = new Temperature() { ID = id, RoomID = roomID, Value = temperature, Date = date };
+                var temp = new Temperature() { ID = id, DeviceID = deviceID, Value = temperature, Date = date };
                 context.Temperatures.Add(temp);
                 context.SaveChanges();
                 return temp;

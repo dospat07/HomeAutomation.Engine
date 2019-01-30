@@ -8,7 +8,7 @@ namespace HomeAutomation.Engine.Commands
 {
     public class ReadTemperatureCommand : ICommand
     {
-        public int RoomID { get; set; }
+        public int DeviceID { get; set; }
        
     }
 }

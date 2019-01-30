@@ -7,17 +7,17 @@ using System.Threading.Tasks;
 
 namespace HomeAutomation.Engine.Persistance
 {
-    public class RoomDbRepository : IRoomRepository,IRoomQuery
+    public class DeviceDbRepository : IDeviceRepository,IDeviceQuery
     {
-        public Room Add(string nodeAddress, string name, AirCondition airCondition)
+        public Device Add(string nodeAddress, string name, Appliance  appliance)
         {
             using (var context = new HomeAutomationContext())
             {
-                int id = context.Rooms.Max(o => o.ID) + 1;
-                var room = new Room() { ID = id, NodeAddress = nodeAddress, Name = name, AirCondition = airCondition };
-                context.Rooms.Add(room);
+                int id = context.Devices.Max(o => o.ID) + 1;
+                var device = new Device() { ID = id, NodeAddress = nodeAddress, Name = name, Appliance = appliance };
+                context.Devices.Add(device);
                 context.SaveChanges();
-                return room;
+                return device;
             }
         }
 
@@ -25,36 +25,36 @@ namespace HomeAutomation.Engine.Persistance
         {
             using (var context = new HomeAutomationContext())
             {
-                context.Remove(context.Rooms.Where(o => o.ID == ID).FirstOrDefault());
+                context.Remove(context.Devices.Where(o => o.ID == ID).FirstOrDefault());
                 context.SaveChanges();
             }
         }
 
-        public Room Get(int ID)
+        public Device Get(int ID)
         {
             using (var context = new HomeAutomationContext())
             {
-                return context.Rooms.Where(o=>o.ID==ID).FirstOrDefault();
+                return context.Devices.Where(o=>o.ID==ID).FirstOrDefault();
             }
         }
 
-        public IEnumerable<Room> GetAll()
+        public IEnumerable<Device> GetAll()
         {
             using (var context = new HomeAutomationContext())
             {
-                return context.Rooms.ToList();
+                return context.Devices.ToList();
             }
         }
 
-        public void Update(Room room)
+        public void Update(Device device)
         {
             using (var context = new HomeAutomationContext())
             {
-                var item = context.Rooms.Where(o => o.ID == room.ID).FirstOrDefault();
+                var item = context.Devices.Where(o => o.ID == device.ID).FirstOrDefault();
 
-                item.AirCondition = room.AirCondition;
-                item.Name = room.Name;
-                item.NodeAddress = room.NodeAddress;
+                item.Appliance = device.Appliance;
+                item.Name = device.Name;
+                item.NodeAddress = device.NodeAddress;
                 context.SaveChanges();
             }
         }
@@ -63,7 +63,7 @@ namespace HomeAutomation.Engine.Persistance
         {
             using (var context = new HomeAutomationContext())
             {
-                var item = context.Rooms.Where(o => o.ID == ID).FirstOrDefault();
+                var item = context.Devices.Where(o => o.ID == ID).FirstOrDefault();
 
                 item.Temperature = temperature;
                 context.SaveChanges();

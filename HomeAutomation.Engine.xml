@@ -25,44 +25,44 @@
             <param name="to">End date</param>
             <returns></returns>
         </member>
-        <member name="M:HomeAutomation.Engine.Controllers.RoomsController.Get">
+        <member name="M:HomeAutomation.Engine.Controllers.DevicesController.Get">
             <summary>
-             Returns all rooms
+             Returns all devices
             </summary>
             <returns></returns>
         </member>
-        <member name="M:HomeAutomation.Engine.Controllers.RoomsController.Get(System.Int32)">
+        <member name="M:HomeAutomation.Engine.Controllers.DevicesController.Get(System.Int32)">
             <summary>
-            Return room 
+            Return device 
             </summary>
-            <param name="id">room id</param>
+            <param name="id">device id</param>
             <returns></returns>
         </member>
-        <member name="M:HomeAutomation.Engine.Controllers.RoomsController.Post(HomeAutomation.Engine.Commands.AddRoomCommand)">
+        <member name="M:HomeAutomation.Engine.Controllers.DevicesController.Post(HomeAutomation.Engine.Commands.AddDeviceCommand)">
             <summary>
-             Add room 
+             Add device 
             </summary>
             <param name="command"></param>
             <returns></returns>
         </member>
-        <member name="M:HomeAutomation.Engine.Controllers.RoomsController.SendCommand(System.Int32,HomeAutomation.Engine.Models.AirCondtionCommand)">
+        <member name="M:HomeAutomation.Engine.Controllers.DevicesController.SendCommand(System.Int32,HomeAutomation.Engine.Models.ApplianceCommand)">
             <summary>
-            Send remote command to device in room id
+            Send remote command to device  
             </summary>
-            <param name="id">room id</param>
+            <param name="id">device id</param>
             <param name="remoteCommand">remote command to device</param>
             <returns></returns>
         </member>
-        <member name="M:HomeAutomation.Engine.Controllers.RoomsController.Put(HomeAutomation.Engine.Commands.UpdateRoomCommand)">
+        <member name="M:HomeAutomation.Engine.Controllers.DevicesController.Put(HomeAutomation.Engine.Commands.UpdateDeviceCommand)">
             <summary>
-            Update room 
+            Update device
             </summary>
             <param name="command"></param>
             <returns></returns>
         </member>
-        <member name="M:HomeAutomation.Engine.Controllers.RoomsController.Delete(HomeAutomation.Engine.Commands.DeleteRoomCommand)">
+        <member name="M:HomeAutomation.Engine.Controllers.DevicesController.Delete(HomeAutomation.Engine.Commands.DeleteDeviceCommand)">
             <summary>
-            Delete room id
+            Delete device id
             </summary>
             <param name="command"></param>
             <returns></returns>

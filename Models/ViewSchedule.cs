@@ -10,7 +10,7 @@ namespace HomeAutomation.Engine.Models
     {
         public int ID { get; set; }
         public string Time { get; set; }
-        public string Room { get; set; }
+        public string Name { get; set; }
         public string Days { get; set; }
         public short Mode { get; set; }
         public short Fan { get; set; }

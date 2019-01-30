@@ -40,8 +40,8 @@ namespace HomeAutomation.Engine.Services
                       ).ToList())
             {
                 Console.WriteLine(command);
-                command.RoomID = schedule.RoomID;
-                command.Command = new AirCondtionCommand()
+                command.DeviceID = schedule.DeviceID;
+                command.Command = new ApplianceCommand()
                 {
                     Mode =  schedule.Mode,
                     Fan = schedule.Fan,

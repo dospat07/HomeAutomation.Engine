@@ -8,7 +8,7 @@ namespace HomeAutomation.Engine.Models
     public class Temperature
     {
         public int ID { get; set; }
-        public int RoomID { get; set; }
+        public int DeviceID { get; set; }
         public float Value { get; set; }
         public DateTime Date { get; set; }
     }
@@ -16,7 +16,7 @@ namespace HomeAutomation.Engine.Models
     public class HourlyTemperature  
     {
         public int ID { get; set; }
-        public int RoomID { get; set; }
+        public int DeviceID { get; set; }
         public float Value { get; set; }
         public DateTime Date { get; set; }
     }

@@ -7,11 +7,11 @@ using System.Threading.Tasks;
 
 namespace HomeAutomation.Engine.Commands
 {
-    public class AddRoomCommand : ICommand
+    public class AddDeviceCommand : ICommand
     {
 
         public string NodeAddress { get; set; }
         public string Name { get; set; }
-        public AirCondition AirCondition { get; set; }
+        public Appliance  Appliance { get; set; }
     }
 }

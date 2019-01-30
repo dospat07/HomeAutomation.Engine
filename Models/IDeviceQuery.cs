@@ -3,9 +3,9 @@ using HomeAutomation.Engine.Models;
 
 namespace HomeAutomation.Engine.Models
 {
-    public interface IRoomQuery
+    public interface IDeviceQuery
     {
-        IEnumerable<Room> GetAll();
-        Room Get(int ID);
+        IEnumerable<Device> GetAll();
+        Device Get(int ID);
     }
 }

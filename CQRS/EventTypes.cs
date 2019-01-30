@@ -10,9 +10,9 @@ namespace HomeAutomation.Engine.CQRS
     [JsonConverter(typeof(StringEnumConverter))]
     public enum EventTypes
     {
-        RoomCreated,
-        RoomDeleted,
-        RoomUpdated,
+        DeviceCreated,
+        DeviceDeleted,
+        DeviceUpdated,
         TemperatureUpdated,
         Error,
         ScheduleCreated,

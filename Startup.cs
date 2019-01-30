@@ -64,8 +64,8 @@ namespace HomeAutomation.Engine
 
 
             //data
-            services.AddScoped<IRoomQuery, RoomDbRepository>();
-            services.AddScoped<IRoomRepository, RoomDbRepository>();
+            services.AddScoped<IDeviceQuery, DeviceDbRepository>();
+            services.AddScoped<IDeviceRepository, DeviceDbRepository>();
             services.AddScoped<IScheduleQuery, ScheduleDbRepository>();
             services.AddScoped<IScheduleRepository, ScheduleDbRepository>();
             services.AddScoped<IUserQuery, UserDbRepository>();
@@ -81,9 +81,9 @@ namespace HomeAutomation.Engine
             services.AddScoped<IViewScheduleFactory, ViewScheduleFactory>();
 
             // command handlers
-            services.AddScoped<ICommandHandler<AddRoomCommand>, RoomHandlers>();
-            services.AddScoped<ICommandHandler<DeleteRoomCommand>, RoomHandlers>();
-            services.AddScoped<ICommandHandler<UpdateRoomCommand>, RoomHandlers>();
+            services.AddScoped<ICommandHandler<AddDeviceCommand>, DeviceHandlers>();
+            services.AddScoped<ICommandHandler<DeleteDeviceCommand>, DeviceHandlers>();
+            services.AddScoped<ICommandHandler<UpdateDeviceCommand>, DeviceHandlers>();
 
             services.AddScoped<ICommandHandler<AddScheduleCommand>, ScheduleHandlers>();
             services.AddScoped<ICommandHandler<DeleteScheduleCommand>, ScheduleHandlers>();

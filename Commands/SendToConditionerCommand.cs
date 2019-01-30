@@ -9,7 +9,7 @@ namespace HomeAutomation.Engine.Commands
 {
     public class SendToConditionerCommand:ICommand
     {
-        public AirCondtionCommand Command { get; set; }
-        public int RoomID { get; set; }
+        public ApplianceCommand Command { get; set; }
+        public int DeviceID { get; set; }
     }
 }

@@ -15,10 +15,10 @@ namespace HomeAutomation.Engine.Services
         class State
         {
             public ICommandBus CommandBus { get; set; }
-            public IRoomQuery RoomQuery { get; set; }
+            public IDeviceQuery DeviceQuery { get; set; }
         }
        
-        public TemperatureReader(IRoomQuery query, ICommandBus commandBus):base(new State() { CommandBus = commandBus, RoomQuery = query })
+        public TemperatureReader(IDeviceQuery query, ICommandBus commandBus):base(new State() { CommandBus = commandBus, DeviceQuery = query })
         {
              
         }
@@ -27,9 +27,9 @@ namespace HomeAutomation.Engine.Services
         {
             var  _state = (State) state;
             ReadTemperatureCommand command = new ReadTemperatureCommand();
-            foreach (var room in _state.RoomQuery.GetAll())
+            foreach (var device in _state.DeviceQuery.GetAll())
             {
-                command.RoomID = room.ID;
+                command.DeviceID = device.ID;
                  
                 _state.CommandBus.Execute(command);
                 // Console.WriteLine($"Node {node.ID} Temp {node.Temperature}");

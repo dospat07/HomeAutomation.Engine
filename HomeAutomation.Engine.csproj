@@ -12,6 +12,10 @@
     <DocumentationFile></DocumentationFile>
   </PropertyGroup>
 
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DocumentationFile>D:\Source\TestApp\HomeAutomation\HomeAutomation.Engine\HomeAutomation.Engine.xml</DocumentationFile>
+  </PropertyGroup>
+
   <ItemGroup>
 
     <PackageReference Include="Microsoft.AspNetCore.App" />

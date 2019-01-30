@@ -7,7 +7,7 @@ namespace HomeAutomation.Engine.Models
 {
     public interface ITemperatureRepository
     {
-        Temperature Add(int roomID, float temperature, DateTime date);
+        Temperature Add(int deviceID, float temperature, DateTime date);
         
        
     }

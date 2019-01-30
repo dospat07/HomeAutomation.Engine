@@ -2,11 +2,11 @@
 
 namespace HomeAutomation.Engine.Models
 {
-    public interface IRoomRepository
+    public interface IDeviceRepository
     {
-        Room Add(string nodeAddress, string name, AirCondition airCondition);
+        Device Add(string nodeAddress, string name, Appliance  appliance);
         void Delete(int iD);
-        void Update(Room room);
+        void Update(Device device);
         void UpdateTemperature(int ID, float? temperature);
     }
 }

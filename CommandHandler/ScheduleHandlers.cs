@@ -31,7 +31,7 @@ namespace HomeAutomation.Engine.CommandHandler
             if (command.Mon || command.Tue || command.Wed || command.Thu || command.Fri || command.Sat || command.Sun)
             {
                 Schedule schedule = this.repository.Add(command.Mon, command.Tue, command.Wed, command.Thu, command.Fri,
-                    command.Sat, command.Sun, command.RoomID, command.Time, command.Temperature, command.Fan,
+                    command.Sat, command.Sun, command.DeviceID, command.Time, command.Temperature, command.Fan,
                     command.Mode);
                 eventServer.SendToAll(EventTypes.ScheduleCreated, this.scheduleFactory.Create(schedule));
             }

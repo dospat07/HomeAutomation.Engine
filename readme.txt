@@ -79,3 +79,10 @@ server {
 
    
 3  sudo ln -s /etc/nginx/sites-available/default /etc/nginx/sites-enabled/
+
+
+нова версия
+промяна на таблицата rooms на devices
+промяна на таблицата Schedules : RoomID=DeviceID
+промяна на таблицата Temparatures : RoomID=DeviceID
+промяна на таблицата HoulryTemparatures : RoomID=DeviceID

@@ -24,7 +24,7 @@ namespace HomeAutomation.Engine.Persistance
                 Mon = true,
                 Fri = true,
                 Time = DateTime.Now,
-                RoomID = 1,
+                DeviceID = 1,
                 Fan = 1, Temperature = 23, Mode = Mode.Heat
             },
 
@@ -35,7 +35,7 @@ namespace HomeAutomation.Engine.Persistance
                 Mon = true,
                 Fri = true,
                 Sun = true,
-                RoomID = 2,
+                DeviceID = 2,
                 Time = DateTime.Now,
                Fan = 1, Temperature = 23, Mode = Mode.Heat
             },
@@ -44,7 +44,7 @@ namespace HomeAutomation.Engine.Persistance
         static object sync = new object();
         private IViewScheduleFactory viewScheduleFactory;
 
-        public Schedule Add(bool mon, bool tue, bool wed, bool thu, bool fri, bool sat, bool sun, int roomID,
+        public Schedule Add(bool mon, bool tue, bool wed, bool thu, bool fri, bool sat, bool sun, int deviceID,
             DateTime time, short temperture, short fan, Mode mode)
         {
             int id = 0;
@@ -67,7 +67,7 @@ namespace HomeAutomation.Engine.Persistance
                 Fri = fri,
                 Sun = sun,
                 Sat = sat,
-                RoomID = roomID,
+                DeviceID = deviceID,
                 Time = time,
                
                     Mode = mode,

@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace HomeAutomation.Engine.Models
 {
-    public class AirCondtionCommand
+    public class ApplianceCommand
     {
         
         public short Temperature { get; set; }

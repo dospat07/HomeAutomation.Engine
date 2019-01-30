@@ -16,7 +16,7 @@ namespace HomeAutomation.Engine.Persistance
             this.scheduleFactory = scheduleFactory;
         }
 
-        public Schedule Add(bool mon, bool tue, bool wed, bool thu, bool fri, bool sat, bool sun, int roomID, DateTime time, short temperture, short fan, Mode mode)
+        public Schedule Add(bool mon, bool tue, bool wed, bool thu, bool fri, bool sat, bool sun, int deviceID, DateTime time, short temperture, short fan, Mode mode)
         {
             int id = 0;
 
@@ -38,7 +38,7 @@ namespace HomeAutomation.Engine.Persistance
                     Fri = fri,
                     Sun = sun,
                     Sat = sat,
-                    RoomID = roomID,
+                    DeviceID = deviceID,
                     Time = time,
                     Mode = mode,
                     Fan = fan,

@@ -32,11 +32,11 @@ namespace HomeAutomation.Engine.Persistance
         {
             using (var ctx = new HomeAutomationContext())
             {
-                var q = from r in ctx.Rooms
+                var q = from r in ctx.Devices
                         select new Dataset()
                         {
                             Label = r.Name,
-                            Data = (from t in temperatures where t.RoomID == r.ID orderby t.Date select t.Value).ToList()
+                            Data = (from t in temperatures where t.DeviceID == r.ID orderby t.Date select t.Value).ToList()
 
                         };
                 var result = new ChartData()

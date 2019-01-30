@@ -8,8 +8,9 @@ using System.Threading.Tasks;
 namespace HomeAutomation.Engine.Models
 {
     [JsonConverter(typeof(StringEnumConverter))]
-    public enum AirCondition:short
+    public enum Appliance :short
     {
+      
         Daikin = 0,
         Toshiba
     }

@@ -17,86 +17,86 @@ namespace HomeAutomation.Engine.Controllers
     [ApiController]
     [Authorize]
     [Route("api/[controller]")]
-    public class RoomsController : Controller
+    public class DevicesController : Controller
     {
         ICommandBus commandBus;
-        IRoomQuery roomsQuery;
-        public RoomsController(ICommandBus commandBus,IRoomQuery roomsQuery)
+        IDeviceQuery deviceQuery;
+        public DevicesController(ICommandBus commandBus,IDeviceQuery deviceQuery)
         {
             this.commandBus = commandBus;
-            this.roomsQuery = roomsQuery;
+            this.deviceQuery = deviceQuery;
         }
         /// <summary>
-        ///  Returns all rooms
+        ///  Returns all devices
         /// </summary>
         /// <returns></returns>
         [HttpGet]
-        public ActionResult<IEnumerable<Room>>Get()
+        public ActionResult<IEnumerable<Device>>Get()
         {
             Console.WriteLine(this.User);
-            return Ok(roomsQuery.GetAll());
+            return Ok(deviceQuery.GetAll());
         }
 
         /// <summary>
-        /// Return room 
+        /// Return device 
         /// </summary>
-        /// <param name="id">room id</param>
+        /// <param name="id">device id</param>
         /// <returns></returns>
         [HttpGet("{id}")]
-        public ActionResult<Room> Get(int id)
+        public ActionResult<Device> Get(int id)
         {
-            var item = roomsQuery.Get(id);
+            var item = deviceQuery.Get(id);
             if (item == null) return NotFound();
             return Ok(item);
          
         }
         /// <summary>
-        ///  Add room 
+        ///  Add device 
         /// </summary>
         /// <param name="command"></param>
         /// <returns></returns>
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesDefaultResponseType]
-        public IActionResult Post([FromBody]AddRoomCommand command)
+        public IActionResult Post([FromBody]AddDeviceCommand command)
         {
             commandBus.Execute(command);
             return Ok();
         }
         /// <summary>
-        /// Send remote command to device in room id
+        /// Send remote command to device  
         /// </summary>
-        /// <param name="id">room id</param>
+        /// <param name="id">device id</param>
         /// <param name="remoteCommand">remote command to device</param>
         /// <returns></returns>
         [HttpPost("{id}")]
-        public IActionResult SendCommand(int id,[FromBody] AirCondtionCommand  remoteCommand)
+        public IActionResult SendCommand(int id,[FromBody] ApplianceCommand  remoteCommand)
         {
 
-            SendToConditionerCommand command = new SendToConditionerCommand() { Command =remoteCommand ,RoomID= id };           
+            SendToConditionerCommand command = new SendToConditionerCommand() { Command =remoteCommand ,DeviceID= id };           
             commandBus.Execute(command);
             return Ok();
 
         }
         /// <summary>
-        /// Update room 
+        /// Update device
         /// </summary>
         /// <param name="command"></param>
         /// <returns></returns>
         [HttpPut]
-        public IActionResult Put( [FromBody] UpdateRoomCommand command)
+        public IActionResult Put( [FromBody] UpdateDeviceCommand command)
         {
             commandBus.Execute(command);
             return Ok();
         }
 
         /// <summary>
-        /// Delete room id
+        /// Delete device id
         /// </summary>
         /// <param name="command"></param>
         /// <returns></returns>
         [HttpDelete]
-        public IActionResult Delete([FromBody] DeleteRoomCommand command)
+        public IActionResult Delete([FromBody] DeleteDeviceCommand command)
         {
             commandBus.Execute(command);
             return Ok();

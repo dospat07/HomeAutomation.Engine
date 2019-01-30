@@ -8,11 +8,11 @@ namespace HomeAutomation.Engine.Services
 {
     public class ViewScheduleFactory : IViewScheduleFactory
     {
-        private IRoomQuery roomQuery;
+        private IDeviceQuery deviceQuery;
 
-        public ViewScheduleFactory(IRoomQuery roomQuery)
+        public ViewScheduleFactory(IDeviceQuery deviceQuery)
         {
-            this.roomQuery = roomQuery;
+            this.deviceQuery = deviceQuery;
         }
 
         public ViewSchedule Create(Schedule schedule)
@@ -22,7 +22,7 @@ namespace HomeAutomation.Engine.Services
             {
                 ID = schedule.ID,
                 Time = schedule.Time.ToString("HH:mm"),
-                Room = roomQuery.GetAll().Where(r => r.ID == schedule.RoomID).FirstOrDefault().Name,
+                Name = deviceQuery.GetAll().Where(r => r.ID == schedule.DeviceID).FirstOrDefault().Name,
                 Fan = schedule.Fan,
                 Mode = (short)schedule.Mode,
                 Temperature = schedule.Temperature

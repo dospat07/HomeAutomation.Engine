@@ -15,7 +15,7 @@ namespace HomeAutomation.Engine.Commands
         public bool Sat { get; set; }
         public bool Sun { get; set; }
         public DateTime Time { get; set; }
-        public int RoomID { get; set; }
+        public int DeviceID { get; set; }
         public short Temperature { get; set; }
         public short Fan { get; set; }
         public Mode Mode { get; set; }
